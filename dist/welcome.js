@@ -4,7 +4,6 @@
   const dialog = document.querySelector('.welcome-screen');
   const main = document.getElementById('main');
   const button = dialog?.querySelector('.welcome-enter');
-  const motionButton = dialog?.querySelector('.welcome-motion');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const key = 'miguel_portfolio_entered';
   const preview = new URLSearchParams(location.search).get('welcome') === '1';
@@ -50,16 +49,6 @@
   }
   root.dataset.welcome = 'waiting';
   dialog.dataset.phase = 'waiting';
-  function syncMotionControl() {
-    if (!motionButton) return;
-    const paused = root.dataset.motion === 'paused';
-    motionButton.hidden = reduced.matches;
-    motionButton.setAttribute('aria-pressed', String(paused));
-    motionButton.setAttribute('aria-label', paused ? 'Resume welcome animations' : 'Pause welcome animations');
-  }
-  motionButton?.addEventListener('click', () => document.querySelector('.motion-toggle')?.click());
-  document.addEventListener('portfolio:motionchange', syncMotionControl);
-  syncMotionControl();
   button.addEventListener('click', () => enter());
   dialog.addEventListener('cancel', event => { event.preventDefault(); enter(true); });
   reduced.addEventListener('change', () => { if (reduced.matches && entering) complete(); });

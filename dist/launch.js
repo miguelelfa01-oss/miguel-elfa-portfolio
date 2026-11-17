@@ -32,5 +32,4 @@
   document.addEventListener('pointerdown', interrupt, { once: true });
   document.addEventListener('keydown', event => { if (event.key === 'Escape' || event.key === 'Tab') interrupt(); });
   reduced.addEventListener('change', () => { if (reduced.matches) finish(); });
-  document.querySelector('.motion-toggle').addEventListener('click', finish);
 })();

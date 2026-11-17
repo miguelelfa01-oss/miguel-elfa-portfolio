@@ -3,29 +3,17 @@
   const root = document.documentElement;
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
   const art = document.querySelector('.orbital');
-  const button = document.querySelector('.motion-toggle');
-  const running = new Set();
-  let paused = false;
   let inView = true;
   let frame = 0;
   let pointerBounds;
   let scrollFrame = 0;
-  try { paused = localStorage.getItem('miguel-motion') === 'paused'; } catch {}
 
-  function stopReveals() {
-    for (const animation of running) animation.cancel();
-    running.clear();
-  }
   function updateMotion() {
     root.dataset.pageVisible = String(!document.hidden);
-    root.dataset.motion = media.matches || paused ? 'paused' : 'full';
+    root.dataset.motion = media.matches ? 'paused' : 'full';
     const welcomeClosed = root.dataset.welcome !== 'waiting' && root.dataset.welcome !== 'leaving';
-    root.dataset.orbit = !media.matches && !paused && !document.hidden && inView && welcomeClosed ? 'running' : 'paused';
-    button.hidden = media.matches;
-    button.setAttribute('aria-pressed', String(paused));
-    button.setAttribute('aria-label', paused ? 'Resume animations' : 'Pause animations');
+    root.dataset.orbit = !media.matches && !document.hidden && inView && welcomeClosed ? 'running' : 'paused';
     if (root.dataset.motion === 'paused') {
-      stopReveals();
       art.style.removeProperty('--tilt-x');
       art.style.removeProperty('--tilt-y');
       art.style.removeProperty('--story-progress');
@@ -35,14 +23,8 @@
   updateMotion();
   document.addEventListener('portfolio:reveal', updateMotion);
   document.addEventListener('portfolio:entered', updateMotion);
-  button.addEventListener('click', () => {
-    paused = !paused;
-    try { localStorage.setItem('miguel-motion', paused ? 'paused' : 'full'); } catch {}
-    updateMotion();
-  });
   media.addEventListener('change', updateMotion);
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopReveals();
     updateMotion();
   });
 
