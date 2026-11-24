@@ -2,7 +2,7 @@
 (() => {
   const root = document.documentElement;
   root.dataset.theme = 'dark';
-  document.querySelector('meta[name="theme-color"]').content = '#060f1d';
+  document.querySelector('meta[name="theme-color"]').content = '#101b29';
   document.getElementById('year').textContent = new Date().getFullYear();
 
   const list = document.getElementById('project-list');
