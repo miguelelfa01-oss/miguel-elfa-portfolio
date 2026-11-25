@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500&display=swap');
+.quote-entry{position:fixed;inset:0;z-index:100;background:#0c0a10;color:#f2eff7;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:6vw;overflow:hidden;isolation:isolate;clip-path:inset(0)}.quote-entry .quote-japanese{font:500 clamp(38px,10.5vw,155px)/1.5 'Noto Serif JP',serif;letter-spacing:.04em;white-space:nowrap;margin:0;display:flex;gap:.03em}.quote-entry .quote-glyph{display:inline-block;animation:quote-ink .55s calc(var(--i)*.1s) cubic-bezier(.16,1,.3,1) both}.quote-entry .quote-rule{height:1px;background:#bd70ff;width:min(740px,83vw);transform-origin:left;margin:24px 0;animation:quote-rule 1s .1s cubic-bezier(.22,.61,.36,1) both}.quote-entry .quote-meaning{text-align:center;animation:quote-meaning .45s .65s ease both}.quote-entry .quote-meaning p{font:500 clamp(20px,2.8vw,34px)/1.4 Space,sans-serif;color:#bd70ff;margin:0}.quote-entry .quote-meaning span{display:block;font:12px/1.6 Manrope,sans-serif;color:#b8aec6;margin-top:12px}.quote-entry .quote-signature{position:absolute;left:4vw;bottom:25px;font:700 17px Space,sans-serif}.quote-entry .quote-progress{position:absolute;bottom:0;left:0;height:2px;width:100%;background:#bd70ff;transform-origin:left;animation:quote-rule 2.1s linear both}.quote-entry.is-leaving{animation:quote-open .55s cubic-bezier(.76,0,.24,1) both}.quote-entry.is-leaving .quote-japanese{transition:transform .55s cubic-bezier(.76,0,.24,1);transform:translateY(-30px)}@keyframes quote-ink{from{opacity:0;clip-path:inset(0 100% 0 0);transform:translateY(12px)}to{opacity:1;clip-path:inset(0);transform:translateY(0)}}@keyframes quote-rule{from{transform:scaleX(0)}to{transform:scaleX(1)}}@keyframes quote-meaning{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes quote-open{to{clip-path:inset(0 0 100% 0)}}body.quote-entering{overflow:hidden}body.quote-entering .opening-line>span,body.quote-entering .opening>div>p,body.quote-entering .opening .enter{animation-play-state:paused}@media(prefers-reduced-motion:reduce){.quote-entry *{animation:none!important;transition:none!important}.quote-entry.is-leaving{animation:quote-fade .2s both}@keyframes quote-fade{to{opacity:0}}}
+
+.quote-entry .quote-signature{display:flex;flex-direction:column;gap:2px;font:700 23px/.85 Space,sans-serif;letter-spacing:-.04em;bottom:30px;left:4vw}
+.quote-entry .quote-signature>span+span{color:#bd70ff;letter-spacing:.105em;text-shadow:0 0 14px #bd70ff55}
+.quote-entry .quote-glyph:nth-child(1),.quote-entry .quote-glyph:nth-child(2){color:#d6b1ff}
+.quote-entry .quote-glyph:nth-child(4){color:#bd70ff;text-shadow:0 0 25px #bd70ff44}
+.quote-entry .quote-meaning p{color:#ded5e8}
+.quote-entry .quote-meaning em{font-style:normal;color:#bd70ff;text-shadow:0 0 18px #bd70ff33}
+@media(max-width:760px){.quote-entry .quote-signature{font-size:20px;left:5vw;bottom:25px}}
+
+.quote-entry .quote-meaning{margin-top:28px}
+
+/* Experimental title sequence: distinct character beats, then English phrases. */
+.quote-entry .quote-glyph{animation:quote-title-beat .48s calc(.06s + var(--i)*.21s) cubic-bezier(.16,1,.3,1) both}
+.quote-entry .quote-glyph:nth-child(4){animation-name:quote-power-beat}
+.quote-entry .quote-meaning{animation:none;margin-top:28px}
+.quote-entry .quote-meaning p .quote-phrase{display:inline-block;font:inherit;line-height:inherit;margin:0;color:inherit;animation:quote-phrase-beat .4s 1.4s cubic-bezier(.16,1,.3,1) both}
+.quote-entry .quote-meaning p .quote-phrase:nth-child(2){animation-delay:1.57s}
+.quote-entry .quote-meaning p .quote-phrase:nth-child(3){animation-delay:1.74s;color:#bd70ff}
+@keyframes quote-title-beat{0%{opacity:0;filter:blur(9px);transform:translateY(20px) scale(.94);clip-path:inset(0)}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);clip-path:inset(0)}}
+@keyframes quote-power-beat{0%{opacity:0;filter:blur(12px);transform:translateY(24px) scale(.8);clip-path:inset(0)}70%{opacity:1;filter:blur(0);transform:translateY(-2px) scale(1.04)}100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);clip-path:inset(0)}}
+@keyframes quote-phrase-beat{from{opacity:0;filter:blur(4px);transform:translateY(9px)}to{opacity:1;filter:blur(0);transform:none}}
+@media(prefers-reduced-motion:reduce){.quote-entry .quote-glyph,.quote-entry .quote-meaning p .quote-phrase{animation:none!important;filter:none;transform:none}}
+
+/* Centre-cut experiment: each character occupies the same position. */
+.quote-entry .quote-japanese{display:grid;grid-template-areas:"quote";place-items:center;gap:0;min-height:1.5em}
+.quote-entry .quote-japanese>.quote-glyph{grid-area:quote;animation:quote-center-beat .34s calc(var(--i)*.19s) cubic-bezier(.16,1,.3,1) both;}
+.quote-entry .quote-complete{grid-area:quote;display:block;white-space:nowrap;animation:quote-center-complete .4s 1.28s cubic-bezier(.16,1,.3,1) both;}
+.quote-entry .quote-complete>span{color:#d6b1ff}.quote-entry .quote-complete em{font-style:normal;color:#bd70ff;text-shadow:0 0 25px #bd70ff44}
+.quote-entry .quote-meaning p .quote-phrase{animation-delay:1.62s}.quote-entry .quote-meaning p .quote-phrase:nth-child(2){animation-delay:1.77s}.quote-entry .quote-meaning p .quote-phrase:nth-child(3){animation-delay:1.92s}
+@keyframes quote-center-beat{0%{opacity:0;transform:scale(.68);filter:blur(6px);clip-path:inset(0)}30%,65%{opacity:1;transform:scale(1);filter:blur(0)}100%{opacity:0;transform:scale(1.12);filter:blur(3px);clip-path:inset(0)}}
+@keyframes quote-center-complete{from{opacity:0;transform:scale(.92);filter:blur(5px)}to{opacity:1;transform:scale(1);filter:blur(0)}}
+@media(prefers-reduced-motion:reduce){.quote-entry .quote-japanese>.quote-glyph{display:none}.quote-entry .quote-complete{animation:none!important}}
+
+/* Full-frame character echoes and the signature's handoff into the header. */
+.quote-entry .quote-echoes{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.quote-entry .quote-edge{position:absolute;top:50%;width:.9em;height:1.1em;font:500 clamp(200px,37vw,530px)/1.1 'Noto Serif JP',serif;transform:translateY(-50%)}
+.quote-entry .quote-edge.left{left:-.42em}.quote-entry .quote-edge.right{right:-.42em}
+.quote-entry .quote-edge span{position:absolute;inset:0;color:transparent;-webkit-text-stroke:1px #bd70ff;opacity:0;animation:quote-edge-beat .5s calc(var(--i)*.19s) ease-out both}
+.quote-entry .quote-edge.right span{animation-name:quote-edge-right}
+.quote-entry .quote-japanese,.quote-entry .quote-meaning{position:relative;z-index:1}
+.quote-entry .quote-signature{z-index:2;animation:quote-signature-arrive .45s 1.35s cubic-bezier(.16,1,.3,1) both}
+body.quote-entering header .brand,body.quote-handoff header .brand{opacity:0}
+.quote-signature-flight{position:fixed;z-index:101;display:flex;flex-direction:column;gap:2px;font:700 23px/.85 Space,sans-serif;letter-spacing:-.04em;transform-origin:top left;color:#f2eff7;pointer-events:none}
+.quote-signature-flight>span+span{color:#bd70ff;letter-spacing:.105em;text-shadow:0 0 14px #bd70ff55}
+@keyframes quote-edge-beat{0%{opacity:0;transform:translateX(-25px) scale(1.08)}35%{opacity:.2}100%{opacity:0;transform:translateX(20px) scale(1)}}
+@keyframes quote-edge-right{0%{opacity:0;transform:translateX(25px) scale(1.08)}35%{opacity:.2}100%{opacity:0;transform:translateX(-20px) scale(1)}}
+@keyframes quote-signature-arrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.quote-entry .quote-echoes{display:none}.quote-entry .quote-signature{animation:none}body.quote-handoff header .brand{opacity:1}}
